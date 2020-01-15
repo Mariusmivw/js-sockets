@@ -3,14 +3,12 @@ const crypto = require('crypto');
 const { join } = require('path');
 const serve = require('js-serve');
 const EventEmitter = require('events');
-const http = require('http');
 
 Function.prototype.inherits = function(superclass) {
 	this.prototype = Object.create(superclass.prototype);
 	this.prototype.constructor = superclass;
 	
-	this.prototype.super = function(...args) {
-		this.super = undefined;
+	this.super = function(...args) {
 		superclass.call(this, ...args);
 		const _super = {};
 		for (const key in superclass.prototype) {
@@ -25,7 +23,7 @@ Function.prototype.inherits = function(superclass) {
 Namespace.inherits(EventEmitter);
 function Namespace(ns) {
 	if (!(this instanceof Namespace)) return new Namespace(ns);
-	this.super();
+	Namespace.super.call(this);
 
 	this.namespaces = [];
 	this.ns = ns;
@@ -47,7 +45,7 @@ Namespace.prototype.in = function(ns) {
 SocketServer.inherits(Namespace);
 function SocketServer(server) {
 	if (!(this instanceof SocketServer)) return new SocketServer(server);
-	this.super('/');
+	SocketServer.super.call(this, '/');
 
 	serve.serve(
 		{
@@ -90,7 +88,7 @@ function SocketServer(server) {
 Socket.inherits(EventEmitter);
 function Socket(socket, socketServer) {
 	if (!(this instanceof Socket)) return new Socket(...arguments);
-	const _super = this.super();
+	const _super = Socket.super.call(this);
 
 	this.id = crypto.randomBytes(20).toString('hex');
 	this._socketServer = socketServer;
