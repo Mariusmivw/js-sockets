@@ -506,11 +506,11 @@
 			ws.addEventListener('open', () => super.emit('ready'));
 			ws.addEventListener('message', (event) => {
 				const data = JSON.parse(event.data);
-				super.emit(data.event, data.data);
+				super.emit(data.event, ...data.data);
 			});
 		}
 
-		emit(event, data) {
+		emit(event, ...data) {
 			this._ws.send(JSON.stringify({ event, data }));
 		}
 	}

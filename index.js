@@ -107,14 +107,14 @@ function Socket(socket, socketServer) {
 	socket.on('data', (buffer) => {
 		const msg = parseMessage(buffer);
 		if (msg) {
-			_super.emit(msg.event, msg.data);
+			_super.emit(msg.event, ...msg.data);
 		} else if (msg === null) {
 			_super.emit('close', 'WebSocket connection closed by the client.');
 		}
 	});
 }
 
-Socket.prototype.emit = function(event, data) {
+Socket.prototype.emit = function(event, ...data) {
 	this._socket.write(constructReply({ event, data }));
 };
 
