@@ -83,6 +83,7 @@ function SocketServer(server) {
 			url.parse(req.url).pathname
 		);
 	});
+	server.on('listening', (...args)=>this.emit('listening', ...args));
 }
 
 Socket.inherits(EventEmitter);
