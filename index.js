@@ -46,6 +46,14 @@ SocketServer.inherits(Namespace);
 function SocketServer(server) {
 	if (!(this instanceof SocketServer)) return new SocketServer(server);
 	SocketServer.super.call(this, '/');
+	
+	let port;
+	if (typeof server == 'number') {
+		port = server;
+		server = http.createServer();
+	}
+	server.on('listening', (...args) => this.emit('listening', ...args));
+	typeof port == 'number' && server.listen(port);
 
 	serve.serve(
 		{
@@ -83,7 +91,6 @@ function SocketServer(server) {
 			url.parse(req.url).pathname
 		);
 	});
-	server.on('listening', (...args)=>this.emit('listening', ...args));
 }
 
 Socket.inherits(EventEmitter);
