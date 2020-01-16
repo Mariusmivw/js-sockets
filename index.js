@@ -215,4 +215,9 @@ function generateAcceptValue(acceptKey) {
 }
 
 SocketServer.SocketServer = SocketServer;
-module.exports = SocketServer;
+SocketServer.Socket = require('./node-client');
+module.exports = {
+	default: SocketServer,
+	SocketServer: SocketServer,
+	Socket: SocketServer.Socket
+};

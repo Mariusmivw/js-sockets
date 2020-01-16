@@ -12,6 +12,7 @@
     "node-static": "^0.7.11"
   },
   "dependencies": {
-    "js-serve": "git+https://github.com/Mariusmivw/js-serve.git"
+    "js-serve": "git+https://github.com/Mariusmivw/js-serve.git",
+    "ws": "^7.2.1"
   }
 }
