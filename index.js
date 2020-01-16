@@ -214,10 +214,6 @@ function generateAcceptValue(acceptKey) {
 		.digest('base64');
 }
 
-SocketServer.SocketServer = SocketServer;
-SocketServer.Socket = require('./node-client');
-module.exports = {
-	default: SocketServer,
-	SocketServer: SocketServer,
-	Socket: SocketServer.Socket
-};
+module.exports = SocketServer;
+module.exports.SocketServer = SocketServer;
+module.exports.Socket = require('./node-client');
